@@ -1,4 +1,4 @@
-$(function () { // Same as document.addEventListener("DOMContentLoaded"...
+  $(function () { // Same as document.addEventListener("DOMContentLoaded"...
 
   // Same as document.querySelector("#navbarToggle").addEventListener("blur",...
   $("#navbarToggle").blur(function (event) {
@@ -96,23 +96,13 @@ function buildAndShowHomeHTML (categories) {
   // Load home snippet page
   $ajaxUtils.sendGetRequest(
     homeHtmlUrl,
-    function (homeHtmlUrl) {
-      $ajaxUtils.sendGetRequest{
-        categoryHtml, 
-        function (categories) {
-          // Switch CSS class active to menu button
-          switchMenuToActive();
+    function (homeHtml) {
+      document.querySelector("#main-content").innerHTML=homeHtml;
 
-          var chosenCategoryShortName =
-            chooseRandomCategory(categories).short_name;
-          var homeHtmlToInsertIntoMainPage = 
-            insertProperty (categoryHtml,"randomCategoryShortName", chosenCategoryShortName.short_name);
-          insertHtml("#main-content", homeHtmlToInsertIntoMainPage);
-        },
-        false);
-    },
-    false);
-}
+      var chosenCategoryShortName = chooseRandomCategory(categories).short_name;
+      var homeHtmlToInsertIntoMainPage = 
+          insertProperty (homeHtml,"randomCategoryShortName", "'"+chosenCategoryShortName+"'");
+      insertHtml("#main-content", homeHtmlToInsertIntoMainPage);
 
       // TODO: STEP 2: Here, call chooseRandomCategory, passing it retrieved 'categories'
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
